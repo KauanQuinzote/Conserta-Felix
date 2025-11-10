@@ -1,13 +1,9 @@
-import { Router } from 'express';
-import healthController from '../controllers/healthController';
-import authController from '../controllers/authController';
-import jwtAuth from '../middleware/jwtAuth';
+import { Router, Request, Response } from 'express';
+import jwtAuth from '../middleware/jwt_auth';
 
 const router = Router();
 
-router.get('/health', healthController.getHealth);
-router.post('/auth/login', authController.login);
-router.get('/protected', jwtAuth, (req, res) => {
+router.get('/protected', jwtAuth, (req: Request, res: Response) => {
   res.json({ msg: 'protected', user: (req as any).user });
 });
 

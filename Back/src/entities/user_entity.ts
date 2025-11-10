@@ -1,0 +1,20 @@
+import { randomUUID } from 'crypto';
+import Person from "../interfaces/person_interface";
+
+export default class UserEntity implements Person {
+  readonly id = randomUUID();
+  public name: string;
+  public email: string;
+  readonly createdAt: Date;
+  public updatedAt: Date;
+  public active: boolean;
+
+  constructor(name: string, email: string) {
+    this.name = name;
+    this.email = email;
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+    this.active = true;
+  }
+
+}

@@ -1,4 +1,4 @@
-import app from './infra/expressApp';
+import app from './infra/express_app';
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 

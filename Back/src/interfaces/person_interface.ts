@@ -1,0 +1,8 @@
+export default interface Person {
+  readonly id: string;
+  name: string;
+  email: string;
+  readonly createdAt: Date;
+  updatedAt: Date;
+  active: boolean;
+}
