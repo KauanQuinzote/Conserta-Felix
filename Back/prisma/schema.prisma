@@ -29,6 +29,7 @@ model Service {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   active      Boolean  @default(true)
+  orders      Order[]
 
   @@map("services")
 }
@@ -42,4 +43,48 @@ model Place {
   active    Boolean  @default(true)
 
   @@map("places")
+}
+
+model Client {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  vehicles  Vehicle[]
+  address   String
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  active    Boolean  @default(true)
+
+  @@map("clients")
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  clientId    String
+  client      Client      @relation(fields: [clientId], references: [id])
+  serviceId   String
+  service     Service     @relation(fields: [serviceId], references: [id])
+  orderDue    DateTime
+  status      String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  concludedAt DateTime?
+
+  @@map("orders")
+}
+
+model Vehicle {
+  id        String   @id @default(uuid())
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id])
+  plate     String   @unique
+  type      String
+  make      String
+  model     String
+  year      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  active    Boolean  @default(true)
+
+  @@map("vehicles")
 }

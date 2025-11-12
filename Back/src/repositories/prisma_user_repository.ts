@@ -1,7 +1,7 @@
 import { prisma } from '../infra/prisma/client';
-import { User } from '@prisma/client';
 
-export class PrismaUserRepository {
+
+/*export class PrismaUserRepository {
   async create(data: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<User> {
     return prisma.user.create({
       data
@@ -39,4 +39,4 @@ export class PrismaUserRepository {
       data: { active: false }
     });
   }
-}
+}*/

@@ -1,6 +1,13 @@
+export type ServiceType = 
+    | 'cleaning'
+    | 'repair'
+    | 'maintenance'
+    | 'installation'
+    | 'consultation';
+
 export default interface Service {
-  id: string;
   name: string;
+  type: ServiceType;
   description: string;
   price: number;
   createdAt: Date;

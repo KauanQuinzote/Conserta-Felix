@@ -68,7 +68,8 @@ export default class VehicleEntity<T extends VehicleType = VehicleType> {
   public year: number;
   public createdAt: Date;
   public updatedAt: Date;
-
+  public active: boolean = true;
+  
   constructor(model: string, year: number, plate: string, type: T, make: VehicleBrands<T>) {
     this.plate = plate;
     this.type = type;
