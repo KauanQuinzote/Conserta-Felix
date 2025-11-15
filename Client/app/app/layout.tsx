@@ -8,7 +8,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className='bg-gray-200 min-h-screen'>
-        {children}
+        <Menu/>
+        <section className='flex justify-center items-center pb-8'>
+            {children}
+        </section>
+        
       </body>
     </html>
   )

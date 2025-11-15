@@ -11,11 +11,11 @@ export default function Home() {
      <Particles />
       <Card>
       <Form>
-        <Form.Field name="email" label="Email" placeholder="Digite seu email"/>
-        <Form.Field name="senha" label="Senha" placeholder="Digite sua senha"/>
+        <Form.Field name="email" label="Email" placeholder="Digite seu email" dataType="alpha-numeric"/>
+        <Form.Field name="senha" label="Senha" placeholder="Digite sua senha" dataType="alpha-numeric"/>
         <ButtonGo onClick={() => alert('Botão clicado!')} text="Entrar" />
       </Form>
-      <span>Cadastre-se</span>
+      <span className="absolute right-12 bottom-6 cursor-pointer text-blue-600 hover:underline">Cadastre-se</span>
       </Card>
     </main>
   )

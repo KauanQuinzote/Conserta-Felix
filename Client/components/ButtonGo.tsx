@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function ButtonGo({ onClick, text }: { onClick: () => void ; text: string }) {
   return (
