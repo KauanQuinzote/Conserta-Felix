@@ -51,7 +51,7 @@ const Particles: React.FC = () => {
     let lastSpawn = 0
 
     const animate = (currentTime: number) => {
-      ctx.fillStyle = '#06628D'
+      ctx.fillStyle = '#06628D' // primary-blue
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       // Spawnar novas partículas
@@ -113,7 +113,7 @@ const Particles: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 -z-[9999] w-full h-full"
+      className="fixed inset-0 -z-[9999] w-full h-full bg-gradient-to-b from-white to-primary-blue"
     />
   )
 }
