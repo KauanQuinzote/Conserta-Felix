@@ -1,9 +1,5 @@
 # 🔨 Fix-It Felix: Workshop Management System
 
-<p align="center">
-  <img src="URL_DA_IMAGEM_DO_PROJETO_AQUI" alt="Wreck-It Ralph inspired banner" width="600"/>
-</p>
-
 ## About the Project
 
 This project involves the development of **Fix-It Felix**, a **Management System for Auto Repair Workshops**, created as a practical assignment for the **Object-Oriented Programming (OOP)** discipline at the **Federal University of São Paulo (UNIFESP)**.
