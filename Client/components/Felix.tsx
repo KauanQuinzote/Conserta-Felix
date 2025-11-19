@@ -1,14 +1,20 @@
 import Image from "next/image";
 
-export default function Felix({width, height}: {width?: number; height?: number }) {
-    return (
-        <div className="flex">
-            <Image
-                src="/felix.png"
-                alt="Conserta Felix"
-                width={width}
-                height={height}
-            />
-        </div>
-    );
+interface FelixProps {
+  alt?: string;
+  className?: string;
+  width?: number;
+  height?: number;
+}
+
+export default function Felix({alt = 'Logo do Felix', className, width, height}: FelixProps) {
+  return (
+    <Image 
+      src="/Felix.png" 
+      alt={alt} 
+      className={className}
+      width={width}
+      height={height}
+    />
+  );
 }

@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         sans: ['TikTok Sans', 'Montserrat', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
       },
+      colors: {
+        'primary-blue': '#06628D',
+      },
     },
   },
   plugins: [],
