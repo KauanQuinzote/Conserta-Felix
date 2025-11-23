@@ -4,7 +4,9 @@ import ClientEntity from "../../../entities/client_entity";
 const prisma = new PrismaClient();
 
 export class CreateAccountUseCase {
-  async execute(client: ClientEntity) {
+  constructor(private clientRepository?: any) {}
+
+  public async execute(client: ClientEntity) {
     const { name, email, vehicles, adress } = client;
 
     if (!name || !email || !adress) {
@@ -55,8 +57,6 @@ export class CreateAccountUseCase {
         }
       });
 
-
-
       let finalAdress: any = adress;
 
       if ("adress" in finalAdress) {
@@ -67,7 +67,7 @@ export class CreateAccountUseCase {
         `${finalAdress.street}, ${finalAdress.number}, ${finalAdress.neighborhood}, ` +
         `${finalAdress.city} - ${finalAdress.state}, ${finalAdress.zipCode ?? ""}, ${finalAdress.country ?? ""}`;
 
-      const client = await tx.client.create({
+      const clientRecord = await tx.client.create({
         data: {
           userId: user.id,
           address: formattedAddress
@@ -83,7 +83,7 @@ export class CreateAccountUseCase {
               make: v.make,
               model: v.model,
               year: v.year,
-              clientId: client.id
+              clientId: clientRecord.id
             }
           })
         )
@@ -91,7 +91,7 @@ export class CreateAccountUseCase {
 
       return {
         user,
-        client,
+        client: clientRecord,
         vehicles: createdVehicles
       };
     });

@@ -1,6 +1,6 @@
 import UserEntity from "./user_entity";
 import VehicleEntity from "./vehicle_entity";
-import Adress from "../interfaces/place_interface";
+import Adress from "../interfaces/adress_interface";
 import OrdersEntity from "./order_entity";
 
 export default class ClientEntity extends UserEntity {
