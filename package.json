@@ -1,4 +1,21 @@
 {
+  "name": "conserta-felix",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"URL_DA_IMAGEM_DO_PROJETO_AQUI\" alt=\"Wreck-It Ralph inspired banner\" width=\"600\"/> </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KauanQuinzote/Conserta-Felix.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KauanQuinzote/Conserta-Felix/issues"
+  },
+  "homepage": "https://github.com/KauanQuinzote/Conserta-Felix#readme",
   "dependencies": {
     "react-router-dom": "^7.9.6"
   }
