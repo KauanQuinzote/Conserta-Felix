@@ -5,9 +5,9 @@ export default class UserEntity implements Person {
   readonly id = randomUUID();
   public name: string;
   public email: string;
-  readonly createdAt: Date;
-  public updatedAt: Date;
-  public active: boolean;
+  readonly createdAt: Date = new Date();
+  public updatedAt: Date = new Date();
+  public active: boolean = true;
 
   constructor(name: string, email: string) {
     this.name = name;

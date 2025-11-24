@@ -66,8 +66,8 @@ export default class VehicleEntity<T extends VehicleType = VehicleType> {
   public make: VehicleBrands<T>;
   public model: string;
   public year: number;
-  public createdAt: Date;
-  public updatedAt: Date;
+  public readonly createdAt: Date = new Date();
+  public updatedAt: Date = new Date();
   public active: boolean = true;
   
   constructor(model: string, year: number, plate: string, type: T, make: VehicleBrands<T>) {
@@ -76,7 +76,5 @@ export default class VehicleEntity<T extends VehicleType = VehicleType> {
     this.make = make;
     this.model = model;
     this.year = year;
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
   }
 }
