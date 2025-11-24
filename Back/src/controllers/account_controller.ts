@@ -7,7 +7,6 @@ import { CreateAccountUseCase } from '../use-cases/client/account/CreateAccountU
 export class AccountController {
   constructor(
     private createAccountUseCase: CreateAccountUseCase
-    // Adicione outros use cases aqui quando forem criados:
     // private editAccountUseCase: EditAccountUseCase,
     // private deleteAccountUseCase: DeleteAccountUseCase
   ) {}

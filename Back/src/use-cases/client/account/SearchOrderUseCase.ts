@@ -1,5 +1,5 @@
 export class DeleteOrderUseCase {
-  async execute(id: string) {
+  async execute(query: any) {
     throw new Error('DeleteOrderUseCase não foi implementado ainda.');
   }
 }
