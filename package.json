@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/KauanQuinzote/Conserta-Felix/issues"
   },
-  "homepage": "https://github.com/KauanQuinzote/Conserta-Felix#readme",
-  "dependencies": {
-    "react-router-dom": "^7.9.6"
-  }
+  "homepage": "https://github.com/KauanQuinzote/Conserta-Felix#readme"
 }
