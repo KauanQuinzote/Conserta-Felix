@@ -3,12 +3,14 @@ import { CreateAccountDTO } from '../dtos/create_account_dto';
 import VehicleEntity from '../entities/vehicle_entity';
 import ClientEntity from '../entities/client_entity';
 import { CreateAccountUseCase } from '../use-cases/client/account/CreateAccountUseCase';
+import { EditAccountUseCase } from '../use-cases/client/account/EditAccountUseCase';
+import { DeleteAccountUseCase } from '../use-cases/client/account/DeleteAccountUseCase';
 
 export class AccountController {
   constructor(
-    private createAccountUseCase: CreateAccountUseCase
-    // private editAccountUseCase: EditAccountUseCase,
-    // private deleteAccountUseCase: DeleteAccountUseCase
+    private createAccountUseCase: CreateAccountUseCase,
+    private editAccountUseCase: EditAccountUseCase,
+    private deleteAccountUseCase: DeleteAccountUseCase
   ) {}
 
   async create(req: Request, res: Response) {

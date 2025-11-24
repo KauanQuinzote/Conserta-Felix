@@ -1,3 +1,5 @@
-export default function DeleteAccountUseCase() {
-  throw new Error('DeleteAccountUseCase (Client) não foi implementado ainda.');
+export class DeleteAccountUseCase {
+  async execute(query: any) {
+    throw new Error('DeleteAccountUseCase (Client) não foi implementado ainda.');
+  }
 }

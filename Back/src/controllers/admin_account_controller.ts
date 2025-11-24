@@ -11,7 +11,7 @@ export class AdminAccountController {
   async create(req: Request, res: Response) {
     try {
       const data = req.body;
-      // const result = await this.createAccountUseCase.execute(data);
+      const result = await this.createAccountUseCase.execute(data);
       res.status(201).json({ message: 'Admin account created', data });
     } catch (error: any) {
       res.status(400).json({
@@ -23,7 +23,7 @@ export class AdminAccountController {
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      // const result = await this.deleteAccountUseCase.execute(id);
+      const result = await this.deleteAccountUseCase.execute(id);
       res.status(200).json({ message: 'Account deleted', id });
     } catch (error: any) {
       res.status(400).json({
