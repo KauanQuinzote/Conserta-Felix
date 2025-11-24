@@ -1,13 +1,11 @@
 'use client'
 import Card from "@/components/Card";
-import Banner from "@/components/Banner";
 
 export default function Panel() {
     return (
         <main>
-            <Banner width={1920} height={600} className="w-full h-[600px] object-cover"/>
             <Card width={900} height={500}>
-            <h1>Bem-vindo ao Painel</h1>
+            <h1>Bem-vindo aos Pedidos</h1>
             </Card>
         </main>
     );
