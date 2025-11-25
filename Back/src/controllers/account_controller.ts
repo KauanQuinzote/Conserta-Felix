@@ -5,6 +5,7 @@ import ClientEntity from '../entities/client_entity';
 import { CreateAccountUseCase } from '../use-cases/client/account/CreateAccountUseCase';
 import { EditAccountUseCase } from '../use-cases/client/account/EditAccountUseCase';
 import { DeleteAccountUseCase } from '../use-cases/client/account/DeleteAccountUseCase';
+import User from '../entities/user_entity';
 
 export class AccountController {
   constructor(
@@ -13,6 +14,27 @@ export class AccountController {
     private deleteAccountUseCase: DeleteAccountUseCase
   ) {}
 
+  async createUser(req: Request, res: Response) {
+    try {
+      const dto: CreateAccountDTO = req.body;
+
+      const user = new User(
+        dto.name,
+        dto.email,
+        dto.password,
+      );
+
+      // Executar use case com a entidade
+      const result = await this.createAccountUseCase.execute(user);
+
+      res.status(201).json(result);
+    } catch (error: any) {
+      res.status(400).json({
+        message: error.message || 'Erro ao criar conta'
+      });
+    }
+  }
+  
   async create(req: Request, res: Response) {
     try {
       const dto: CreateAccountDTO = req.body;
