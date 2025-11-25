@@ -27,7 +27,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center p-8">
        <Particles />
        <Felix width={300} height={500} className="absolute right-[200px]"/>
-        <Card title="Login">
+        <Card title="Login" width={300}>
         <Form>
           <Form.Field name="email" label="Email" placeholder="Digite seu email" dataType="alpha-numeric"/>
           <Form.Field name="senha" label="Senha" placeholder="Digite sua senha" dataType="alpha-numeric"/>

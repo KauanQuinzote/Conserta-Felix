@@ -39,7 +39,7 @@ export class AdminOrderController {
   async conclude(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      // const result = await this.concludeOrderUseCase.execute(id);
+      const result = await this.concludeOrderUseCase.execute(id);
       res.status(200).json({ message: 'Order concluded', id });
     } catch (error: any) {
       res.status(400).json({
@@ -51,7 +51,7 @@ export class AdminOrderController {
   async search(req: Request, res: Response) {
     try {
       const query = req.query;
-      // const result = await this.searchOrderUseCase.execute(query);
+      const result = await this.searchOrderUseCase.execute(query);
       res.status(200).json({ message: 'Orders found', query });
     } catch (error: any) {
       res.status(400).json({

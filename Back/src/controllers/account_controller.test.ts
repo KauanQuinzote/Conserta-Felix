@@ -15,7 +15,7 @@ describe('AccountController', () => {
   beforeEach(() => {
     // Setup dos mocks
     mockCreateAccountUseCase = new CreateAccountUseCase() as jest.Mocked<CreateAccountUseCase>;
-    accountController = new AccountController(mockCreateAccountUseCase);
+    accountController = new AccountController(mockCreateAccountUseCase, {} as any, {} as any);
 
     mockRequest = {
       body: {}

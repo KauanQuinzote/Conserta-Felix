@@ -9,7 +9,7 @@ export class AdminVehicleController {
   async search(req: Request, res: Response) {
     try {
       const query = req.query;
-      // const result = await this.searchVehicleUseCase.execute(query);
+      const result = await this.searchVehicleUseCase.execute(query);
       res.status(200).json({ message: 'Vehicles found', query });
     } catch (error: any) {
       res.status(400).json({

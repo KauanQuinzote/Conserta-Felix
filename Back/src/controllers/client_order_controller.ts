@@ -10,9 +10,8 @@ export class ClientOrderController {
 
   async create(req: Request, res: Response) {
     try {
-      // TODO: Implementar quando o use case estiver completo
       const data = req.body;
-      // const result = await this.createOrderUseCase.execute(data);
+      const result = await this.createOrderUseCase.execute(data);
       res.status(201).json({ message: 'Order created', data });
     } catch (error: any) {
       res.status(400).json({
