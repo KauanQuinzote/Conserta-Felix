@@ -18,7 +18,6 @@ export default function Orders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                // Substitua pela URL da sua API
                 const response = await fetch('/api/orders');
                 const data = await response.json();
                 setOrders(data);
