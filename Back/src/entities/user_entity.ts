@@ -8,14 +8,15 @@ export default class UserEntity implements Person {
   readonly createdAt: Date = new Date();
   public updatedAt: Date = new Date();
   public active: boolean = true;
-  private password?: string;
+  public password?: string;
 
-  constructor(name: string, email: string) {
+  constructor(name: string, email: string , password?: string) {
     this.name = name;
     this.email = email;
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.active = true;
+    this.password = password;
   }
 
 }
