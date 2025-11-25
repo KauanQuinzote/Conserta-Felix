@@ -11,7 +11,7 @@ export class ClientVehicleController {
   async add(req: Request, res: Response) {
     try {
       const data = req.body;
-      // const result = await this.addVehicleUseCase.execute(data);
+      const result = await this.addVehicleUseCase.execute(data);
       res.status(201).json({ message: 'Vehicle added', data });
     } catch (error: any) {
       res.status(400).json({
@@ -23,7 +23,7 @@ export class ClientVehicleController {
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      // const result = await this.deleteVehicleUseCase.execute(id);
+      const result = await this.deleteVehicleUseCase.execute(id);
       res.status(200).json({ message: 'Vehicle deleted', id });
     } catch (error: any) {
       res.status(400).json({

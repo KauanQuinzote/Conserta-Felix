@@ -1,5 +1,37 @@
 import { redirect } from "next/navigation";
 
 export default function Home() {
-  redirect("/app/home");
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+
+  const handleSignUpNavigation = () => {
+    setIsLoading(true)
+    // Simula um pequeno delay para mostrar o loading
+    setTimeout(() => {
+      router.push('/sign-up')
+    }, 500)
+  }
+
+  return (
+    <>
+      {isLoading && <Loading />}
+      <main className="flex min-h-screen flex-col items-center justify-center p-8">
+       <Particles />
+       <Felix width={300} height={500} className="absolute right-[200px]"/>
+        <Card title="Login" width={300}>
+        <Form>
+          <Form.Field name="email" label="Email" placeholder="Digite seu email" dataType="alpha-numeric"/>
+          <Form.Field name="senha" label="Senha" placeholder="Digite sua senha" dataType="alpha-numeric"/>
+          <ButtonGo onClick={() => alert('Botão clicado!')} text="Entrar"/>
+          <button 
+            onClick={handleSignUpNavigation}
+            className="absolute right-12 bottom-5 cursor-pointer text-primary-blue hover:underline bg-transparent border-none"
+          >
+            Cadastre-se
+          </button>
+        </Form>
+        </Card>
+      </main>
+    </>
+  )
 }

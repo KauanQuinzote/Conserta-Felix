@@ -8,7 +8,7 @@ const router = Router();
 
 // Instanciar use cases e controller
 const createAccountUseCase = new CreateAccountUseCase();
-const accountController = new AccountController(createAccountUseCase);
+const accountController = new AccountController(createAccountUseCase, null as any, null as any);
 
 // Criar conta não requer autenticação (registro público)
 router.post('/account', (req, res) => accountController.create(req, res));
