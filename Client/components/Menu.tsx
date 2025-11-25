@@ -13,7 +13,7 @@ export default function Menu() {
   const handleProfileNavigation = () => {
     router.push('/app/profile')
   }
-  const userConnect=true
+  const userConnect=false
 
   return (
     <header className="w-full bg-blue-800 text-white p-4 shadow-md h-16 flex mb-1 font-[600]">

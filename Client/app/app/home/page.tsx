@@ -12,7 +12,7 @@ export default function HomePage() {
         <Banner
           width={1920}
           height={600}
-          className="w-full h-[550px] object-cover"
+          className="w-full h-[500px] object-cover"
         />
       </section>
 
