@@ -11,7 +11,7 @@ const createAccountUseCase = new CreateAccountUseCase();
 const accountController = new AccountController(createAccountUseCase, null as any, null as any);
 
 //cria Usuario
-router.post('/user', (req, res) => accountController.createUser(req, res));
+router.post('/', (req, res) => accountController.createUser(req, res));
 
 // Criar conta não requer autenticação (registro público)
 router.post('/account', (req, res) => accountController.create(req, res));

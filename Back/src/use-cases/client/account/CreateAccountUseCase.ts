@@ -2,6 +2,7 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import ClientEntity from "../../../entities/client_entity";
 import User from "../../../entities/user_entity";
 import * as bcrypt from 'bcrypt';
+
 const prisma = new PrismaClient();
 
 export class CreateAccountUseCase {
