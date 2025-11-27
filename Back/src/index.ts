@@ -4,7 +4,7 @@ import accountRoutes from './routes/account_routes';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 
-app.use('/user', accountRoutes);
+app.use('/sing-up', accountRoutes);
 
 
 

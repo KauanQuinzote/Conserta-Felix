@@ -1,4 +1,15 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // <--- ADICIONE ESSA LINHA
 import { redirect } from "next/navigation";
+import Particles from '@/components/Particles';
+import Felix from '@/components/Felix'; 
+import Card from '@/components/Card';
+import Form from '@/components/Form';
+import ButtonGo from '@/components/ButtonGo';
+import Loading from '@/components/Loading';
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
