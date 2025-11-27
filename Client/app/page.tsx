@@ -1,4 +1,12 @@
-import { redirect } from "next/navigation";
+'use client';
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Card from "../components/Card";
+import Form from "../components/Form";
+import Particles from "../components/Particles";
+import ButtonGo from "../components/ButtonGo";
+import Loading from "../components/Loading";
+import Felix from "../components/Felix";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
@@ -18,9 +26,9 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center p-8">
        <Particles />
        <Felix width={300} height={500} className="absolute right-[200px]"/>
-        <Card title="Login" width={300}>
+        <Card title="Login" width={400}>
         <Form>
-          <Form.Field name="email" label="Email" placeholder="Digite seu email" dataType="alpha-numeric"/>
+          <Form.Field name="email" label="Email" placeholder="Digite seu email" dataType="all"/>
           <Form.Field name="senha" label="Senha" placeholder="Digite sua senha" dataType="alpha-numeric"/>
           <ButtonGo onClick={() => alert('Botão clicado!')} text="Entrar"/>
           <button 
