@@ -6,14 +6,24 @@ import { CreateAccountUseCase } from '../use-cases/client/account/CreateAccountU
 
 const router = Router();
 
+//teste-de rota autorizada
+router.get('/test-auth', jwtAuth, (req, res) => {
+  res.status(200).json({ message: 'Rota autorizada acessada com sucesso!' });
+});
+
 // Instanciar use cases e controller
 const createAccountUseCase = new CreateAccountUseCase();
 const accountController = new AccountController(createAccountUseCase, null as any, null as any);
 
+//teste de rota autorizada
+router.get('/', jwtAuth, (req, res) => {
+  res.status(200).json({ message: 'Rota autorizada acessada com sucesso!' });
+});
+
 //cria Usuario
 router.post('/', (req, res) => accountController.createUser(req, res));
 
-// Login requer autenticação
+// Login nao requer autenticação 
 router.post('/login', (req, res) => accountController.login(req, res));
 
 // Criar conta não requer autenticação (registro público)
