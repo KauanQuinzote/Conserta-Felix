@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
 import Person from "../interfaces/person_interface";
+import bcrypt from 'bcrypt';
 
 export default class UserEntity implements Person {
   readonly id = randomUUID();
@@ -8,15 +9,21 @@ export default class UserEntity implements Person {
   readonly createdAt: Date = new Date();
   public updatedAt: Date = new Date();
   public active: boolean = true;
-  public password?: string;
+  private password: string;
+  public hashedPassword: string;
 
-  constructor(name: string, email: string , password?: string) {
+  constructor(name: string, email: string , password: string, ) {
     this.name = name;
     this.email = email;
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.active = true;
     this.password = password;
+    this.hashedPassword = this.hachePassword();   
+  }
+
+  hachePassword(): string {
+    return bcrypt.hashSync(this.password, 10);
   }
 
 }

@@ -6,6 +6,8 @@ const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 app.use('/sing-up', accountRoutes);
 
+app.use('/sing-in', accountRoutes);
+
 
 
 app.listen(port, () => {

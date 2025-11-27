@@ -9,10 +9,10 @@ export class CreateAccountUseCase {
   constructor(private clientRepository?: any) {}
 
   public async execute(user: User) {
-    const { name, email, password } = user;
+    const { name, email, hashedPassword } = user;
 
-    if (!name || !email || !password) {
-      console.log(name , email , password);
+    if (!name || !email || !hashedPassword) {
+      console.log(name , email , hashedPassword);
       throw new Error("Nome, e-mail e senha são obrigatórios.");
     }
 
@@ -28,8 +28,6 @@ export class CreateAccountUseCase {
     if (emailExists) {
       throw new Error("Este e-mail já está cadastrado.");
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const user = await tx.user.create({
