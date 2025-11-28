@@ -10,16 +10,14 @@ const router = Router();
 const createAccountUseCase = new CreateAccountUseCase();
 const accountController = new AccountController(createAccountUseCase, null as any, null as any);
 
-// Criar conta não requer autenticação (registro público)
-router.post('/account', (req, res) => accountController.create(req, res));
+// Criar novo User (admin)
+router.post('/account/user', (req, res) => accountController.createUser(req, res));
 
-// Editar e deletar requerem autenticação e role 'client'
-router.put('/account/:id', jwtAuth, authorize('client'), (req, res) => 
+// Criar conta de Client
+router.post('/account/client', (req, res) => accountController.createClient(req, res));
+
+// Editar requerem autenticação e role 'client'
+router.put('/account/client/:id', jwtAuth, authorize('client'), (req, res) => 
   accountController.edit(req, res)
 );
-
-router.delete('/account/:id', jwtAuth, authorize('client'), (req, res) => 
-  accountController.delete(req, res)
-);
-
 export default router;

@@ -1,13 +1,13 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import { prisma } from "../../../infra/prisma/client";
 import ClientEntity from "../../../entities/client_entity";
+import * as bcrypt from 'bcrypt';
 
-const prisma = new PrismaClient();
-
-export class CreateAccountUseCase {
+ export class CreateAccountUseCase {
   constructor(private clientRepository?: any) {}
 
   public async execute(client: ClientEntity) {
-    const { name, email, vehicles, adress } = client;
+    const { name, email, password , vehicles, adress } = client;
 
     if (!name || !email || !adress) {
       throw new Error("Nome, e-mail e endereço são obrigatórios.");
@@ -49,11 +49,18 @@ export class CreateAccountUseCase {
       throw new Error("Este e-mail já está cadastrado.");
     }
 
+    if (!password) {
+      throw new Error("Senha é obrigatória.");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const user = await tx.user.create({
         data: {
           name,
-          email
+          email,
+          password: hashedPassword,
         }
       });
 

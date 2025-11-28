@@ -7,7 +7,6 @@ import clientOrderRoutes from './client_order_routes';
 import clientVehicleRoutes from './client_vehicle_routes';
 
 // Admin routes
-import adminAccountRoutes from './admin_account_routes';
 import adminOrderRoutes from './admin_order_routes';
 import adminVehicleRoutes from './admin_vehicle_routes';
 
@@ -19,7 +18,6 @@ router.use(clientOrderRoutes);
 router.use(clientVehicleRoutes);
 
 // Admin routes
-router.use(adminAccountRoutes);
 router.use(adminOrderRoutes);
 router.use(adminVehicleRoutes);
 
