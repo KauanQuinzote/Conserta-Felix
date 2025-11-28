@@ -25,9 +25,9 @@ export class AccountController {
       );
 
       // Executar use case com a entidade
-      const result = await this.createAccountUseCase.execute(user);
+      //const result = await this.createAccountUseCase.execute(user);
 
-      res.status(201).json(result);
+     // res.status(201).json(result);
     } catch (error: any) {
       res.status(400).json({
         message: error.message || 'Erro ao criar conta'
@@ -35,7 +35,7 @@ export class AccountController {
     }
   }
   
-  async create(req: Request, res: Response) {
+  async createClient(req: Request, res: Response) {
     try {
       const dto: CreateAccountDTO = req.body;
 
@@ -47,6 +47,7 @@ export class AccountController {
       const client = new ClientEntity(
         dto.name,
         dto.email,
+        dto.password,
         vehicles,
         dto.adress,
         []

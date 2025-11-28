@@ -1,7 +1,15 @@
 import express from 'express';
+import cors from 'cors';
 import routes from '../routes';
 
 const app = express();
+
+// CORS
+app.use(cors({
+  origin: 'http://localhost:3001',
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Rota raiz para teste
