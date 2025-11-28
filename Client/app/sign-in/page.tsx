@@ -8,7 +8,7 @@ import ButtonGo from "@/components/ButtonGo"
 import Loading from "@/components/Loading"
 import Felix from "@/components/Felix"
 
-export default function Home() {
+export default function Signin() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 

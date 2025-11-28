@@ -1,8 +1,6 @@
 'use client'
 import '@/styles/globals.css'
 import { ReactNode } from 'react'
-import Menu from '@/components/Menu'
-
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

@@ -16,7 +16,7 @@ const testimonials = [
 export default function Feedbacks() {
   return (
     <div className="max-w-5xl mx-auto text-center px-6">
-      <h2 className="text-2xl font-bold text-blue-700 mb-8">
+      <h2 className="text-5xl font-bold text-blue-700 mb-8">
         O que dizem nossos clientes
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

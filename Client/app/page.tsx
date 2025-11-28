@@ -9,6 +9,7 @@ import Loading from "../components/Loading";
 import Felix from "../components/Felix";
 
 export default function Home() {
+  redirect("/app/home")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
@@ -43,3 +44,4 @@ export default function Home() {
     </>
   )
 }
+
