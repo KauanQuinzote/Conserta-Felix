@@ -6,6 +6,11 @@ import { CreateAccountUseCase } from '../use-cases/client/account/CreateAccountU
 
 const router = Router();
 
+//teste-de rota autorizada
+router.get('/test-auth', jwtAuth, (req, res) => {
+  res.status(200).json({ message: 'Rota autorizada acessada com sucesso!' });
+});
+
 // Instanciar use cases e controller
 const createAccountUseCase = new CreateAccountUseCase();
 const accountController = new AccountController(createAccountUseCase, null as any, null as any);
