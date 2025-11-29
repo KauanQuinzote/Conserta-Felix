@@ -3,57 +3,10 @@ import { prisma } from "../../../infra/prisma/client";
 import ClientEntity from "../../../entities/client_entity";
 import * as bcrypt from 'bcrypt';
 
-const prisma = new PrismaClient();
-
-export class CreateAccountUseCase {
+export class CreateClientAccountUseCase {
   constructor(private clientRepository?: any) {}
 
-  public async execute(user: User) {
-    const { name, email, hashedPassword } = user;
-
-    if (!name || !email || !hashedPassword) {
-      console.log(name , email , hashedPassword);
-      throw new Error("Nome, e-mail e senha são obrigatórios.");
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      throw new Error("E-mail inválido.");
-    }
-
-    const emailExists = await prisma.user.findUnique({
-      where: { email }
-    });
-
-    if (emailExists) {
-      throw new Error("Este e-mail já está cadastrado.");
-    }
-
-    const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-      const user = await tx.user.create({
-        data: {
-          name,
-          email,
-          password: hashedPassword,
-
-        }
-      });
-
-      return user ;
-
-    });
-
-    return {
-      message: "Conta criada com sucesso!",
-      data: result
-    };
-  }
-}
- 
-/*export class CreateAccountUseCase {
-  constructor(private clientRepository?: any) {}
-
-  public async execute(client: ClientEntity) {
+  public async execute(client: any) {
     const { name, email, password , vehicles, adress } = client;
 
     if (!name || !email || !adress) {
@@ -108,6 +61,7 @@ export class CreateAccountUseCase {
           name,
           email,
           password: hashedPassword,
+          role: 'client'
         }
       });
 
@@ -152,7 +106,19 @@ export class CreateAccountUseCase {
 
     return {
       message: "Conta criada com sucesso!",
-      data: result
+      data: {
+        user: {
+          userId: result.user.id,
+          name: result.user.name,
+          email: result.user.email,
+          role: result.user.role,
+          clientId: result.client.id
+        },
+        client: result.client,
+        vehicles: result.vehicles
+      }
     };
   }
 }
+
+export default CreateClientAccountUseCase;

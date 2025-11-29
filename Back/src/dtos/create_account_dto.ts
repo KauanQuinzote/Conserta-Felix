@@ -3,6 +3,7 @@ import Adress from "../interfaces/adress_interface";
 export interface CreateAccountDTO {
   name: string;
   email: string;
+  role: 'admin' | 'client';
   password: string;
   vehicles: Array<{
     model: string;
