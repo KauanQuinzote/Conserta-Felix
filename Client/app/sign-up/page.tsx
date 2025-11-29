@@ -46,7 +46,7 @@ export default function SignUp() {
         const data = await response.json();
         alert('Conta criada com sucesso!');
         console.log('Resposta da API:', data);
-        router.push('/login');
+        router.push('/sign-in');
 
       } else {
         const error = await response.json();
