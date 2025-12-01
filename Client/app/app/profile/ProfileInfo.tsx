@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import VehicleList from "@/components/VehicleList";
 
 export default function ProfileInfo(){
-    const [user, setUser] = useState<{ name?: string; email?: string; number: string }>({});
+    const [user, setUser] = useState<{ name?: string; email?: string; number?: string }>({});
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
+        
         if (storedUser) {
             try {
                 setUser(JSON.parse(storedUser));
