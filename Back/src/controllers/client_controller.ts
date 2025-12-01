@@ -25,9 +25,10 @@ export class ClientController {
       const client = new ClientEntity(
         dto.name,
         dto.email,
+        dto.number,
         dto.password,
         vehicles,
-        dto.adress,
+        dto.address,
         []
       );
 

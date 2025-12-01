@@ -1,6 +1,6 @@
-export default interface Adress {
+export default interface Address {
   street: string;
-  number: number;
+  addressNumber: number;
   neighborhood: string;
   city: string;
   state: string;
