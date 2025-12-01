@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+
 import ClientEntity from "../../../entities/client_entity";
 import { prisma } from "../../../infra/prisma/client";
 

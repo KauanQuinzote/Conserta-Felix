@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { PrismaClient, Prisma } from "@prisma/client";
-=======
-import { Prisma } from "@prisma/client";
+
 import { prisma } from "../../../infra/prisma/client";
->>>>>>> 719520ab859e3cdf9449ef05fd153814901fcbe2
 import ClientEntity from "../../../entities/client_entity";
 import * as bcrypt from 'bcrypt';
 
@@ -124,8 +120,5 @@ export class CreateClientAccountUseCase {
     };
   }
 }
-<<<<<<< HEAD
-=======
 
 export default CreateClientAccountUseCase;
->>>>>>> 719520ab859e3cdf9449ef05fd153814901fcbe2
