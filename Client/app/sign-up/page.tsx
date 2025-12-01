@@ -21,6 +21,7 @@ export default function SignUp() {
         body: JSON.stringify({
           name: values.nome,
           email: values.email,
+          number: values.numero,
           password: values.senha,
           vehicles: [{
             plate: values.placa,
