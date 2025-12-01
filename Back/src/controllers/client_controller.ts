@@ -58,8 +58,12 @@ export class ClientController {
     try {
       const { id } = req.params;
       // TODO: Implementar quando DeleteAccountUseCase for criado
+<<<<<<< HEAD
       const result = await this.deleteAccountUseCase?.execute(id);
       res.status(200).json(result);
+=======
+      res.status(501).json({ message: 'Delete client not implemented yet' });
+>>>>>>> 719520ab859e3cdf9449ef05fd153814901fcbe2
     } catch (error: any) {
       res.status(400).json({
         message: error.message || 'Erro ao deletar cliente'

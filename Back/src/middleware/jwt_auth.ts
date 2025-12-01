@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'change_this_secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'clicleteComBanana';
 
 export default function jwtAuth(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
@@ -20,4 +20,8 @@ export default function jwtAuth(req: Request, res: Response, next: NextFunction)
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' });
   }
+}
+
+export function generateToken(payload: object) {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 }

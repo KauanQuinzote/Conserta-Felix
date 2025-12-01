@@ -1,6 +1,6 @@
 import UserEntity from "./user_entity";
 import VehicleEntity from "./vehicle_entity";
-import Adress from "../interfaces/place_interface";
+import Adress from "../interfaces/adress_interface";
 import OrdersEntity from "./order_entity";
 
 export default class ClientEntity extends UserEntity {
@@ -8,8 +8,8 @@ export default class ClientEntity extends UserEntity {
   public adress: Adress;
   public orders: OrdersEntity[] = [];
 
-  constructor(name: string, email: string, vehicles: VehicleEntity[], adress: Adress, orders?: OrdersEntity[]) {
-    super(name, email);
+  constructor(name: string, email: string, password: string, vehicles: VehicleEntity[], adress: Adress, orders?: OrdersEntity[]) {
+    super(name, email, password);
     this.vehicles = vehicles;
     this.adress = adress;
     if (orders) {

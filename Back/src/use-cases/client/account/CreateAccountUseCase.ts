@@ -1,11 +1,17 @@
+<<<<<<< HEAD
 import { PrismaClient, Prisma } from "@prisma/client";
+=======
+import { Prisma } from "@prisma/client";
+import { prisma } from "../../../infra/prisma/client";
+>>>>>>> 719520ab859e3cdf9449ef05fd153814901fcbe2
 import ClientEntity from "../../../entities/client_entity";
+import * as bcrypt from 'bcrypt';
 
-const prisma = new PrismaClient();
+export class CreateClientAccountUseCase {
+  constructor(private clientRepository?: any) {}
 
-export class CreateAccountUseCase {
-  async execute(client: ClientEntity) {
-    const { name, email, vehicles, adress } = client;
+  public async execute(client: any) {
+    const { name, email, password , vehicles, adress } = client;
 
     if (!name || !email || !adress) {
       throw new Error("Nome, e-mail e endereço são obrigatórios.");
@@ -47,15 +53,21 @@ export class CreateAccountUseCase {
       throw new Error("Este e-mail já está cadastrado.");
     }
 
+    if (!password) {
+      throw new Error("Senha é obrigatória.");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const user = await tx.user.create({
         data: {
           name,
-          email
+          email,
+          password: hashedPassword,
+          role: 'client'
         }
       });
-
-
 
       let finalAdress: any = adress;
 
@@ -67,7 +79,7 @@ export class CreateAccountUseCase {
         `${finalAdress.street}, ${finalAdress.number}, ${finalAdress.neighborhood}, ` +
         `${finalAdress.city} - ${finalAdress.state}, ${finalAdress.zipCode ?? ""}, ${finalAdress.country ?? ""}`;
 
-      const client = await tx.client.create({
+      const clientRecord = await tx.client.create({
         data: {
           userId: user.id,
           address: formattedAddress
@@ -83,7 +95,7 @@ export class CreateAccountUseCase {
               make: v.make,
               model: v.model,
               year: v.year,
-              clientId: client.id
+              clientId: clientRecord.id
             }
           })
         )
@@ -91,14 +103,29 @@ export class CreateAccountUseCase {
 
       return {
         user,
-        client,
+        client: clientRecord,
         vehicles: createdVehicles
       };
     });
 
     return {
       message: "Conta criada com sucesso!",
-      data: result
+      data: {
+        user: {
+          userId: result.user.id,
+          name: result.user.name,
+          email: result.user.email,
+          role: result.user.role,
+          clientId: result.client.id
+        },
+        client: result.client,
+        vehicles: result.vehicles
+      }
     };
   }
 }
+<<<<<<< HEAD
+=======
+
+export default CreateClientAccountUseCase;
+>>>>>>> 719520ab859e3cdf9449ef05fd153814901fcbe2

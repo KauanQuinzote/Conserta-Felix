@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { PrismaClient, Prisma } from "@prisma/client";
 import ClientEntity from "../../../entities/client_entity";
 import User from "../../../entities/user_entity";
@@ -42,3 +43,10 @@ export class DeleteAccountUseCase {
     return { message: "Conta deletada com sucesso!" };
   }
 }
+=======
+export class DeleteAccountUseCase {
+  async execute(query: any) {
+    throw new Error('DeleteAccountUseCase (Client) não foi implementado ainda.');
+  }
+}
+>>>>>>> 719520ab859e3cdf9449ef05fd153814901fcbe2
