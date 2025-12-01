@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import VehicleList from "@/components/VehicleList";
 
 export default function ProfileInfo(){
-    const [user, setUser] = useState<{ name?: string; email?: string }>({});
+    const [user, setUser] = useState<{ name?: string; email?: string; number: string }>({});
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -34,6 +34,16 @@ export default function ProfileInfo(){
             <input
             type="email"
             value={user.email || ""}
+            readOnly
+            className="border p-2 rounded bg-gray-100 w-full"
+            />
+        </div>
+
+        <div className="flex flex-col space-y-1">
+            <label className="font-semibold text-gray-700">Número</label>
+            <input
+            type="numero"
+            value={user.number || ""}
             readOnly
             className="border p-2 rounded bg-gray-100 w-full"
             />
