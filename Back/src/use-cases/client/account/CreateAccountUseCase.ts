@@ -86,7 +86,7 @@ export class CreateClientAccountUseCase {
       let finalAddress: any = address;
 
       if ("address" in finalAddress) {
-        finalAddress = finalAddress.adress;
+        finalAddress = finalAddress.address;
       }
 
       const formattedAddress =
