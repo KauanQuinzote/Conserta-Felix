@@ -5,12 +5,14 @@ import ClientEntity from '../entities/client_entity';
 import { CreateClientAccountUseCase } from '../use-cases/client/account/CreateAccountUseCase';
 import { EditAccountUseCase } from '../use-cases/client/account/EditAccountUseCase';
 import { DeleteAccountUseCase } from '../use-cases/client/account/DeleteAccountUseCase';
+import { SearchOrderUseCase } from '../use-cases/client/account/SearchOrderUseCase';
 
 export class ClientController {
   constructor(
     private createClientAccountUseCase: CreateClientAccountUseCase,
     private editAccountUseCase?: EditAccountUseCase,
-    private deleteAccountUseCase?: DeleteAccountUseCase
+    private deleteAccountUseCase?: DeleteAccountUseCase,
+    private searchOrderUseCase?: SearchOrderUseCase
   ) {}
 
   async createClient(req: Request, res: Response) {
@@ -46,7 +48,8 @@ export class ClientController {
     try {
       const { id } = req.params;
       // TODO: Implementar quando EditAccountUseCase for criado
-      res.status(501).json({ message: 'Edit client not implemented yet' });
+      const result = await this.editAccountUseCase?.execute(id, req.body);
+      res.status(200).json(result);
     } catch (error: any) {
       res.status(400).json({
         message: error.message || 'Erro ao editar cliente'
@@ -58,15 +61,23 @@ export class ClientController {
     try {
       const { id } = req.params;
       // TODO: Implementar quando DeleteAccountUseCase for criado
-<<<<<<< HEAD
       const result = await this.deleteAccountUseCase?.execute(id);
       res.status(200).json(result);
-=======
-      res.status(501).json({ message: 'Delete client not implemented yet' });
->>>>>>> 719520ab859e3cdf9449ef05fd153814901fcbe2
     } catch (error: any) {
       res.status(400).json({
         message: error.message || 'Erro ao deletar cliente'
+      });
+    }
+  }
+
+  async searchOrder(req: Request, res: Response) {
+    try {
+      const { clientId, orderId } = req.params;
+      const result = await this.searchOrderUseCase?.execute(clientId, orderId);
+      res.status(200).json(result);
+    } catch (error: any) {
+      res.status(400).json({
+        message: error.message || 'Erro ao buscar pedido'
       });
     }
   }
