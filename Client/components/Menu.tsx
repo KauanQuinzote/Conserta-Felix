@@ -23,11 +23,12 @@ export default function Menu() {
         return;
       }
 
-      else{
-        router.push('/app/profile');
-      }
+     
+      router.push('/app/profile');
+      
     } catch (error) {
       console.error("Erro na função userConnect:", error);
+      router.push('/sign-in'); 
     }
   }
 
