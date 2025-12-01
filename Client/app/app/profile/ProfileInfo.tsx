@@ -4,18 +4,21 @@ import VehicleList from "@/components/VehicleList";
 
 export default function ProfileInfo(){
     const [user, setUser] = useState<{ name?: string; email?: string; number?: string }>({});
+    const [client, setClient] = useState<any>({});
 
     useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        
-        if (storedUser) {
-            try {
-                setUser(JSON.parse(storedUser));
-            } catch (error) {
-                console.error("Erro ao ler user do localStorage:", error);
-            }
-        }
-    }, []);
+    const storedUser = localStorage.getItem("user");
+    const storedClient = localStorage.getItem("client");
+
+    if (storedUser) {
+        setUser(JSON.parse(storedUser));
+    }
+
+    if (storedClient) {
+        setClient(JSON.parse(storedClient));
+    }
+}, []);
+
 
     return <div className="flex flex-col space-y-6 p-6">
 
@@ -43,7 +46,7 @@ export default function ProfileInfo(){
         <div className="flex flex-col space-y-1">
             <label className="font-semibold text-gray-700">Número</label>
             <input
-            type="numero"
+            type="text"
             value={user.number || ""}
             readOnly
             className="border p-2 rounded bg-gray-100 w-full"
@@ -54,35 +57,11 @@ export default function ProfileInfo(){
 
         <h2 className="text-1xl font-bold mb-4">Endereço</h2>
         <div className="flex flex-col space-y-1">
-            <label className="font-semibold text-gray-700">Rua</label>
-            <input
-                type="text"
+            <input type="text"
+                value={client.address || ""}
+                readOnly
                 className="border p-2 rounded bg-gray-100 w-full"
-            />
-        </div>
-
-        <div className="flex flex-col space-y-1">
-            <label className="font-semibold text-gray-700">Bairro</label>
-            <input
-            type="text"
-            className="border p-2 rounded bg-gray-100 w-full"
-            />
-        </div>
-
-        <div className="flex flex-col space-y-1">
-            <label className="font-semibold text-gray-700">Cidade</label>
-            <input
-            type="text"
-            className="border p-2 rounded bg-gray-100 w-full"
-            />
-        </div>
-
-        <div className="flex flex-col space-y-1">
-            <label className="font-semibold text-gray-700">Estado</label>
-            <input
-            type="text"
-            className="border p-2 rounded bg-gray-100 w-full"
-            />
+                />
         </div>
 
         <hr className='border-t-4'></hr>

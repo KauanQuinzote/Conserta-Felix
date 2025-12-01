@@ -1,8 +1,9 @@
-import Adress from "../interfaces/adress_interface";
+import Address from "../interfaces/adress_interface";
 
 export interface CreateAccountDTO {
   name: string;
   email: string;
+  number: string;
   role: 'admin' | 'client';
   password: string;
   vehicles: Array<{
@@ -12,5 +13,5 @@ export interface CreateAccountDTO {
     type: 'Car' | 'Motorcycle' | 'Van';
     make: string;
   }>;
-  adress: Adress;
+  address: Address;
 }

@@ -7,10 +7,12 @@ export class CreateClientAccountUseCase {
   constructor(private clientRepository?: any) {}
 
   public async execute(client: any) {
-    const { name, email, password , vehicles, adress } = client;
+    console.log("CLIENTE RECEBIDO:", client);
 
-    if (!name || !email || !adress) {
-      throw new Error("Nome, e-mail e endereço são obrigatórios.");
+    const { name, email, password , vehicles, address, number } = client;
+
+    if (!name || !email || !address || !number) {
+      throw new Error("Nome, e-mail, número de telefone e endereço são obrigatórios.");
     }
 
     if (!Array.isArray(vehicles) || vehicles.length === 0) {
@@ -49,6 +51,21 @@ export class CreateClientAccountUseCase {
       throw new Error("Este e-mail já está cadastrado.");
     }
 
+    const numberStr = String(number).trim();
+
+    if (!numberStr) {
+      throw new Error("Número de telefone é obrigatório.");
+    }
+
+    const numberExists = await prisma.user.findUnique({
+      where: { number: numberStr }
+    });
+
+
+    if (numberExists) {
+      throw new Error("Este número de telefone já está cadastrado.");
+    }
+
     if (!password) {
       throw new Error("Senha é obrigatória.");
     }
@@ -60,20 +77,21 @@ export class CreateClientAccountUseCase {
         data: {
           name,
           email,
+          number,
           password: hashedPassword,
           role: 'client'
         }
       });
 
-      let finalAdress: any = adress;
+      let finalAddress: any = address;
 
-      if ("adress" in finalAdress) {
-        finalAdress = finalAdress.adress;
+      if ("address" in finalAddress) {
+        finalAddress = finalAddress.adress;
       }
 
       const formattedAddress =
-        `${finalAdress.street}, ${finalAdress.number}, ${finalAdress.neighborhood}, ` +
-        `${finalAdress.city} - ${finalAdress.state}, ${finalAdress.zipCode ?? ""}, ${finalAdress.country ?? ""}`;
+        `${finalAddress.street}, ${finalAddress.number}, ${finalAddress.neighborhood}, ` +
+        `${finalAddress.city} - ${finalAddress.state}, ${finalAddress.zipCode ?? ""}, ${finalAddress.country ?? ""}`;
 
       const clientRecord = await tx.client.create({
         data: {
@@ -111,6 +129,7 @@ export class CreateClientAccountUseCase {
           userId: result.user.id,
           name: result.user.name,
           email: result.user.email,
+          number: result.user.number,
           role: result.user.role,
           clientId: result.client.id
         },

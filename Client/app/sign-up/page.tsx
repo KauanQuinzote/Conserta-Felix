@@ -30,9 +30,9 @@ export default function SignUp() {
             model: values.modelo,
             year: parseInt(values.ano)
           }],
-          adress: {
+          address: {
             street: values.street,
-            number: parseInt(values.number),
+            addressnumber: parseInt(values.number),
             neighborhood: values.neighborhood,
             city: values.city,
             state: values.state,
@@ -71,7 +71,7 @@ export default function SignUp() {
           <Form onSubmit={handleSubmit}>
             <Form.Field name="nome" label="Nome" placeholder="Digite seu nome" />
             <Form.Field name="email" label="Email" placeholder="Digite seu email" dataType="all"/>
-            <Form.Field name="numero" label="Número (ddd + número)" placeholder="Insira seu número" dataType="numeric-symbols" />
+            <Form.Field name="numero" label="Número (ddd + número)" placeholder="Insira seu número" dataType="all" />
             <Form.Field name="senha" label="Senha" placeholder="Digite sua senha" dataType="alpha-numeric" />
             <hr className='border-t-4'></hr>
               <h2 className="text-lg font-semibold m-6 text-center">Cadastro do Veículo</h2>
