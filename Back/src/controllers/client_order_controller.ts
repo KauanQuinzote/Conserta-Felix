@@ -20,10 +20,11 @@ export class ClientOrderController {
 
       const result = await this.getOrdersUseCase.execute(clientId);
       console.log(result);
-      
+
       if(result === null) {
         throw new Error('Erro ao buscar pedidos');
       }
+      
       res.status(200).json(result);
     } catch (error: any) {
       res.status(400).json({
