@@ -90,7 +90,7 @@ export class CreateClientAccountUseCase {
       }
 
       const formattedAddress =
-        `${finalAddress.street}, ${finalAddress.number}, ${finalAddress.neighborhood}, ` +
+        `${finalAddress.street}, ${finalAddress.addressnumber}, ${finalAddress.neighborhood}, ` +
         `${finalAddress.city} - ${finalAddress.state}, ${finalAddress.zipCode ?? ""}, ${finalAddress.country ?? ""}`;
 
       const clientRecord = await tx.client.create({

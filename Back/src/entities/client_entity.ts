@@ -9,7 +9,7 @@ export default class ClientEntity extends UserEntity {
   public orders: OrdersEntity[] = [];
 
   constructor(name: string, email: string, number: string, password: string, vehicles: VehicleEntity[], address: Address, orders?: OrdersEntity[]) {
-    super(name, email, number, password);
+    super(name, email, number, password, "client");
     this.vehicles = vehicles;
     this.address = address;
     if (orders) {

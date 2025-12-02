@@ -32,7 +32,7 @@ export default function SignUp() {
           }],
           address: {
             street: values.street,
-            addressnumber: parseInt(values.number),
+            addressNumber: parseInt(values.number),
             neighborhood: values.neighborhood,
             city: values.city,
             state: values.state,
