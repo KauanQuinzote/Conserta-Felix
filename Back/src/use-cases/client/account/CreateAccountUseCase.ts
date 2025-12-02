@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+
 import { prisma } from "../../../infra/prisma/client";
 import ClientEntity from "../../../entities/client_entity";
 import * as bcrypt from 'bcrypt';
