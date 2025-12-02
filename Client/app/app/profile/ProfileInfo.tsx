@@ -16,11 +16,12 @@ interface UserLS {
   name?: string;
   email?: string;
   number?: string;
+  password?: string;
 }
 
 interface ClientLS {
   id?: string;
-  address?: Address; // <- importante: address como objeto
+  address?: Address; 
 }
 
 export default function ProfileInfo() {
@@ -52,7 +53,6 @@ export default function ProfileInfo() {
     }
   }, []);
 
-  // Montar endereço legível a partir do objeto
   const formattedAddress = client.address
     ? `${client.address.street}, ${client.address.addressNumber} - ${client.address.neighborhood}, ${client.address.city} - ${client.address.state}`
     : "";
@@ -85,8 +85,16 @@ export default function ProfileInfo() {
         <label className="font-semibold text-gray-700">Número</label>
         <input
           type="text"
-          value={user.number || ""}   // <- isso só aparece se o localStorage tiver number
-          readOnly
+          value={user.number || ""} 
+          className="border p-2 rounded bg-gray-100 w-full"
+        />
+      </div>
+
+      <div className="flex flex-col space-y-1">
+        <label className="font-semibold text-gray-700">Senha</label>
+        <input
+          type="password"
+          value={user.password || "1234"}
           className="border p-2 rounded bg-gray-100 w-full"
         />
       </div>
@@ -98,7 +106,6 @@ export default function ProfileInfo() {
         <input
           type="text"
           value={formattedAddress}
-          readOnly
           className="border p-2 rounded bg-gray-100 w-full"
         />
       </div>
