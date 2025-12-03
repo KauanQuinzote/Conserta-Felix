@@ -1,31 +1,63 @@
-'use client';
+"use client";
 
-import Link from "next/link";
-import Card from "@/components/Card";
+import { redirect } from "next/navigation";
+import ButtonReturn from "@/components/ButtonReturn";
+
+function handleOrder(){
+  redirect("/app/orders/create")
+}
+
 
 export default function AlinhamentoBalanceamento() {
   return (
-    <div className="max-w-3xl mx-auto p-8">
-      <Card width={600} height={800}>
-        <div className="text-center mt-6">
-          <img src="/alinhamento.png" className="w-32 mx-auto" />
+    <div className="w-full bg-white">
+      <ButtonReturn></ButtonReturn>
+      <section className="w-full flex justify-center py-16">
+        <div className="w-full max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
 
-          <h1 className="text-3xl font-bold text-blue-700 mt-4">
-            Alinhamento e Balanceamento
-          </h1>
+      
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-blue-700 mb-6 uppercase leading-tight">
+              Alinhamento e Balanceamento
+            </h1>
 
-          <p className="mt-4 text-gray-700 text-lg">
-            Mantém o carro estável, seguro e evita desgaste irregular dos pneus.
-          </p>
+            <p className="text-gray-800 leading-relaxed mb-4">
+              A <span className="font-bold">Conserta Félix</span> oferece serviços de
+              Alinhamento e Balanceamento com equipamentos de alta precisão,
+              garantindo dirigibilidade estável, segura e confortável.
+            </p>
 
-          <ul className="list-disc ml-8 text-gray-700 text-left mt-4">
-            <li>Alinhamento 3D</li>
-            <li>Balanceamento das rodas</li>
-            <li>Correção de cambagem (se necessário)</li>
-            <li>Relatório final</li>
-          </ul>
+            <p className="text-gray-800 leading-relaxed mb-4">
+              O ideal é realizar esse serviço a cada{" "}
+              <span className="font-bold">10.000 km</span> para prevenir desgaste
+              irregular dos pneus, consumo excessivo e desalinhamentos que afetam a
+              suspensão e direção.
+            </p>
+
+            <p className="text-gray-800 leading-relaxed">
+              Com profissionais especializados e tecnologia avançada, a Conserta Félix
+              fornece ajustes precisos e diagnóstico detalhado para máxima segurança e economia.
+            </p>
+          </div>
+
+          <div className="w-full flex justify-center">
+            <img
+              src="/alinhamentoexp.png"
+              alt="Alinhamento"
+              className="rounded-xl shadow-lg w-full object-cover aspect-[4/3]"
+            />
+          </div>
         </div>
-      </Card>
+      </section>
+
+      <section className="w-full flex justify-center pb-16">
+        <div className="w-full max-w-4xl px-6">
+        <button onClick={handleOrder} className="w-full bg-blue-700 hover:bg-blue-900 transition-all text-white font-bold text-lg rounded-full py-4 shadow-lg flex items-center justify-center gap-3">
+            <span>AGENDAR AGORA</span>
+          </button>
+        </div>
+      </section>
+
     </div>
   );
 }
