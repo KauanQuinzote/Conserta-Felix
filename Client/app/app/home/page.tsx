@@ -10,9 +10,9 @@ export default function HomePage() {
     <main>
       <section className="relative w-full">
         <Banner
-          width={1920}
-          height={600}
-          className="w-full h-[500px] object-cover"
+          width={1800}
+          height={400}
+          className="w-[1780] h-[500px] object-cover"
         />
       </section>
 

@@ -1,46 +1,110 @@
 'use client'
-import { UserRound } from "lucide-react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { UserRound, ChevronDown } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function Menu() {
   const router = useRouter()
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [openServices, setOpenServices] = useState(false)
+
+  useEffect(() => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user") || "{}")
+      if (user?.isAdmin) setIsAdmin(true)
+    } catch (error) {
+      console.error("Erro ao verificar admin:", error)
+    }
+  }, [])
 
   const userConnect = () => {
     try {
-      const token = localStorage.getItem('token');
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const clientId = user.clientId;
+      const token = localStorage.getItem("token")
+      const user = JSON.parse(localStorage.getItem("user") || "{}")
+      const clientId = user.clientId
 
-      if (!token) {
-        console.error('Token não encontrado');
-        router.push('/sign-in');
-        return;
-      }
+      if (!token) return router.push("/sign-in")
+      if (!clientId) return console.error("ClientId não encontrado")
 
-      if (!clientId) {
-        console.error('ClientId não encontrado');
-        return;
-      }
-
-     
-      router.push('/app/profile');
-      
+      router.push("/app/profile")
     } catch (error) {
-      console.error("Erro na função userConnect:", error);
-      router.push('/sign-in'); 
+      console.error("Erro na função userConnect:", error)
+      router.push("/sign-in")
     }
   }
 
   return (
-    <header className="w-full bg-blue-800 text-white p-4 shadow-md h-16 flex mb-1 font-[600]">
-      <ul className="flex space-x-8 absolute">
-        <li className="cursor-pointer transition-all duration-500 hover:text-lg" ><Link href="/">Inicio</Link></li>
-        <li className="cursor-pointer transition-all duration-500 hover:text-lg"  ><Link href="/app/orders">Pedidos</Link></li>
-        <li className="cursor-pointer transition-all duration-500 hover:text-lg"  ><Link href="/app/clients">Clientes</Link></li>
-        <li className="cursor-pointer transition-all duration-500 hover:text-lg"  ><Link href="/app/vehicles">Veículos</Link></li>
-      </ul>
-      <UserRound size={29 } color="#ffffffff" className="ml-auto mr-1" onClick={userConnect}/>
+    <header className="
+      w-full h-16 
+      bg-blue-700 text-white 
+      flex items-center px-6 gap-6
+      relative
+    ">
+      
+      <Link href="/app/home" className="flex items-center gap-2">
+        <img src="/logo.png" alt="logo_conserta" width={50} height={50}/>
+      </Link>
+
+      <div className="h-6 w-px bg-neutral-700"></div>
+
+      <nav className="flex items-center gap-6 relative">
+
+        <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/about">
+          Sobre
+        </Link>
+
+        <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/orders" onClick={userConnect}>
+          Pedidos
+        </Link>
+
+        <div 
+          className="relative"
+          onMouseEnter={() => setOpenServices(true)}
+          onMouseLeave={() => setOpenServices(false)}
+        >
+          <button className="flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-white/50 transition">
+            Serviços
+            <ChevronDown size={16} />
+          </button>
+
+          {openServices && (
+            <div className="
+              absolute top-full left-0 mt-2 
+              bg-white text-black rounded-lg shadow-lg 
+              w-56 py-2 z-50
+            ">
+              <Link href="/app/services/troca-de-oleo" className="block px-4 py-2 hover:bg-gray-200">Troca de Óleo</Link>
+              <Link href="/app/services/revisao-completa" className="block px-4 py-2 hover:bg-gray-200">Revisão Completa</Link>
+              <Link href="/app/services/freios-e-suspensao" className="block px-4 py-2 hover:bg-gray-200">Freios e Suspensão</Link>
+              <Link href="/app/services/diagnostico-eletronico" className="block px-4 py-2 hover:bg-gray-200">Diagnóstico Eletrônico</Link>
+              <Link href="/app/services/ar-condicionado" className="block px-4 py-2 hover:bg-gray-200">Ar Condicionado</Link>
+              <Link href="/app/services/alinhamento-e-balanceamento" className="block px-4 py-2 hover:bg-gray-200">Alinhamento e Balanceamento</Link>
+            </div>
+          )}
+        </div>
+
+        {isAdmin && (
+            <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/clients" onClick={userConnect}>
+              Clientes
+            </Link>
+          )}
+
+            <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/vehicles" onClick={userConnect}>
+              Veículos
+            </Link>
+      </nav>
+
+      {/* ÍCONE DO USUÁRIO */}
+      <div className="ml-auto">
+        <UserRound 
+          size={28}
+          className="cursor-pointer hover:text-blue-900 transition" 
+          onClick={userConnect}
+        />
+      </div>
+
     </header>
-  );
+  )
 }

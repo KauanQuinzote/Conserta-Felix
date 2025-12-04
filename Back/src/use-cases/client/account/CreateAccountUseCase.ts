@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+
 import { prisma } from "../../../infra/prisma/client";
 import ClientEntity from "../../../entities/client_entity";
 import * as bcrypt from 'bcrypt';
@@ -86,11 +86,11 @@ export class CreateClientAccountUseCase {
       let finalAddress: any = address;
 
       if ("address" in finalAddress) {
-        finalAddress = finalAddress.adress;
+        finalAddress = finalAddress.address;
       }
 
       const formattedAddress =
-        `${finalAddress.street}, ${finalAddress.number}, ${finalAddress.neighborhood}, ` +
+        `${finalAddress.street}, ${finalAddress.addressnumber}, ${finalAddress.neighborhood}, ` +
         `${finalAddress.city} - ${finalAddress.state}, ${finalAddress.zipCode ?? ""}, ${finalAddress.country ?? ""}`;
 
       const clientRecord = await tx.client.create({

@@ -15,6 +15,7 @@ export class UserController {
       const user = new User(
         dto.name,
         dto.email,
+        dto.number,
         dto.password,
         dto.role
       );
