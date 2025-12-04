@@ -22,10 +22,6 @@ export class DeleteOrderUseCase {
       await tx.order.delete({
         where: { id: orderId },
       });
-
-      await tx.service.delete({
-        where: { id: serviceId },
-      });
     });
 
     return { message: "Pedido deletado com sucesso." };
