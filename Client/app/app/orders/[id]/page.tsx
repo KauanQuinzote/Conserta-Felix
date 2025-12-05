@@ -6,19 +6,35 @@ import Loading from '@/components/Loading';
 
 type OrderStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled';
 
-interface OrderDetails {
-  id: string;
-  clientId: string;
-  service: {
-    name: string;
-    description?: string;
-    price?: number;
-  };
-  orderDue: string;
-  status: OrderStatus;
+interface UserDetails {
+  name: string;
+  email: string;
+}
+
+interface ClientDetails {
+  id: string;
+  userId: string;
+  user: UserDetails; 
+  active: boolean;
+  address: string;
   createdAt: string;
   updatedAt: string;
-  concludedAt?: string;
+}
+
+interface OrderDetails {
+  id: string;
+  clientId: string;
+  service: {
+    name: string;
+    description?: string;
+    price?: number;
+  };
+  orderDue: string;
+  status: OrderStatus;
+  createdAt: string;
+  updatedAt: string;
+  concludedAt?: string;
+  client: ClientDetails; 
 }
 
 export default function OrderDetailsPage() {
@@ -30,25 +46,46 @@ export default function OrderDetailsPage() {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/orders/${params.id}`);
-        const data = await response.json();
-        setOrder(data);
-      } catch (error) {
-        console.error('Erro ao buscar detalhes do pedido:', error);
-        // Mock data para teste
-        setOrder({
-          id: params.id as string,
-          clientId: 'client-123',
-          service: {
-            name: 'Troca de óleo completa',
-            description: 'Troca de óleo do motor, filtro de óleo e verificação de fluidos',
-            price: 150.00
-          },
-          orderDue: '2025-12-01T10:00:00Z',
-          status: 'in_progress',
-          createdAt: '2025-11-20T08:00:00Z',
-          updatedAt: '2025-11-27T14:30:00Z',
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+          console.error("Token de autenticação não encontrado. Usuário não logado.");
+          // Redirecionar para a página de login
+          router.push('/sign-in');
+          return;
+        }
+
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const clientId = user.clientId;
+
+        if (!clientId) {
+          alert('Erro: Cliente não identificado. Faça login novamente.');
+          setIsLoading(false);
+          return;
+        }
+
+        // Prepara os dados para enviar
+        const orderData = {
+          clientId: clientId
+        };
+       
+        const response = await fetch(`http://localhost:3000/api/order/${params.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          }
         });
+
+        const data = await response.json();
+
+        setOrder(data);
+
+      } catch (error) {
+
+        console.error('Erro ao buscar detalhes do pedido:', error);
+        alert('Erro ao buscar detalhes do pedido. Por favor, tente novamente.');
+
       } finally {
         setIsLoading(false);
       }
@@ -84,10 +121,10 @@ export default function OrderDetailsPage() {
         <div className="flex justify-between items-start mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              Pedido #{order.id.slice(0, 8)}
+              Pedido #{order?.id?.slice(0, 8) || 'Carregando...'}
             </h1>
-            <span className={`inline-block px-4 py-2 rounded-full font-semibold ${statusConfig[order.status].color}`}>
-              {statusConfig[order.status].text}
+            <span className={`inline-block px-4 py-2 rounded-full font-semibold ${statusConfig[order?.status]?.color}`}>
+              {statusConfig[order?.status]?.text || 'Status Desconhecido'}
             </span>
           </div>
         </div>
@@ -118,6 +155,7 @@ export default function OrderDetailsPage() {
               <h3 className="font-bold text-lg">Cliente</h3>
             </div>
             <p className="text-gray-800">ID: {order.clientId}</p>
+            <p className="text-gray-800">Nome: {order?.client?.user?.name}</p>
           </div>
 
           {/* Data de entrega */}
