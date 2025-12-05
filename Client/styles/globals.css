@@ -9,7 +9,7 @@ html, body, #__next {
 }
 
 body {
-  font-family: 'TikTok Sans', 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-family: 'Nunito', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   background-color: #ffffff;
   color: #111827; /* text-gray-900 */
 }
