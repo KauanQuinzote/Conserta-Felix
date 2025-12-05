@@ -18,7 +18,7 @@ export default function Sobre() {
 
           <div className="flex justify-center">
             <img
-              src="/felix.png"
+              src="/Felix.png"
               alt="Mascote Conserta Félix"
               className="w-80 drop-shadow-xl"
             />

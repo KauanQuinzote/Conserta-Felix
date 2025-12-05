@@ -12,19 +12,23 @@ export default function ProfileInfo() {
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
-    const id = storedUser ? JSON.parse(storedUser).clientId: null;
+    const id = storedUser ? JSON.parse(storedUser).clientId : null;
     
     setToken(storedToken);
     setClientId(id);
     setIsLoading(false);
   }, []);
 
-  console.log('ClientId:', clientId);
-  console.log('Token:', token);
-
   useEffect(() => {
     const fetchAddress = async () => {
-      console.log('entrei')
+      // Só executa se token e clientId existirem
+      if (!token || !clientId) {
+        console.log('Token ou ClientId não disponível ainda');
+        return;
+      }
+
+      console.log('Buscando endereço para:', { clientId, token });
+
       try {
         const response = await fetch(`http://localhost:3000/api/account/client/address/${clientId}`, {
           headers: {

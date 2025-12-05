@@ -41,6 +41,7 @@ export default function Menu() {
       bg-blue-700 text-white 
       flex items-center px-6 gap-6
       relative
+      font-bold
     ">
       
       <Link href="/app/home" className="flex items-center gap-2">
