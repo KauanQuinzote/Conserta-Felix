@@ -1,14 +1,12 @@
 
 import { prisma } from "../../../infra/prisma/client";
-import ClientEntity from "../../../entities/client_entity";
+import { Prisma } from "@prisma/client";
 import * as bcrypt from 'bcrypt';
 
 export class CreateClientAccountUseCase {
   constructor(private clientRepository?: any) {}
 
   public async execute(client: any) {
-    console.log("CLIENTE RECEBIDO:", client);
-
     const { name, email, password , vehicles, address, number } = client;
 
     if (!name || !email || !address || !number) {
@@ -89,14 +87,21 @@ export class CreateClientAccountUseCase {
         finalAddress = finalAddress.address;
       }
 
-      const formattedAddress =
-        `${finalAddress.street}, ${finalAddress.addressnumber}, ${finalAddress.neighborhood}, ` +
-        `${finalAddress.city} - ${finalAddress.state}, ${finalAddress.zipCode ?? ""}, ${finalAddress.country ?? ""}`;
+      // Salvar endereço como JSON string
+      const addressObject = {
+        street: finalAddress.street,
+        number: finalAddress.addressnumber || finalAddress.number,
+        neighborhood: finalAddress.neighborhood,
+        city: finalAddress.city,
+        state: finalAddress.state,
+        zipCode: finalAddress.zipCode || "",
+        country: finalAddress.country || "Brasil"
+      };
 
       const clientRecord = await tx.client.create({
         data: {
           userId: user.id,
-          address: formattedAddress
+          address: JSON.stringify(addressObject)
         }
       });
 

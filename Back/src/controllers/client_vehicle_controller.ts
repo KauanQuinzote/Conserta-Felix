@@ -43,7 +43,6 @@ export class ClientVehicleController {
       }
 
       const result = await this.getVehicleUseCase.execute(clientId);
-      console.log(result);
       
       if(result === null) {
         throw new Error('Erro ao buscar veiculos');

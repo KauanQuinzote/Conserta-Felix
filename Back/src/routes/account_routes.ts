@@ -5,6 +5,7 @@ import { UserController } from '../controllers/user_controller';
 import { ClientController } from '../controllers/client_controller';
 import { CreateClientAccountUseCase } from '../use-cases/client/account/CreateAccountUseCase';
 import { CreateAccountUseCase } from '../use-cases/admin/account/CreateAccountUseCase';
+import { GetAddressUseCase } from '../use-cases/client/account/GetAddressUseCase';
 
 const router = Router();
 
@@ -16,10 +17,11 @@ router.get('/test-auth', jwtAuth, (req, res) => {
 // Instanciar use cases
 const createClientAccountUseCase = new CreateClientAccountUseCase();
 const createUserAccountUseCase = new CreateAccountUseCase();
+const getAddressUseCase = new GetAddressUseCase();
 
 // Instanciar controllers
 const userController = new UserController(createUserAccountUseCase);
-const clientController = new ClientController(createClientAccountUseCase);
+const clientController = new ClientController(createClientAccountUseCase, undefined, undefined, undefined, getAddressUseCase);
 
 // ========== ROTAS DE USER (Admin) ==========
 // Criar novo User (admin)
@@ -39,12 +41,17 @@ router.delete('/account/user/:id', jwtAuth, authorize('admin'), (req, res) =>
 // Criar conta de Client - não requer autenticação (registro público)
 router.post('/account/client', (req, res) => clientController.createClient(req, res));
 
-// Editar cliente - requer autenticação de client
+// Obter endereço do cliente - requer autenticação de client
+router.get('/account/client/address/:clientId', jwtAuth, authorize('client'), (req, res) => 
+  clientController.getAddress(req, res)
+);
+
+// Editar conta de Client - requer autenticação de client
 router.put('/account/client/:id', jwtAuth, authorize('client'), (req, res) => 
   clientController.editClient(req, res)
 );
 
-// Deletar cliente - requer autenticação de client
+// Deletar conta de Client - requer autenticação de client
 router.delete('/account/client/:id', jwtAuth, authorize('client'), (req, res) => 
   clientController.deleteClient(req, res)
 );

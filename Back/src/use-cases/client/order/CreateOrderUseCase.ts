@@ -15,10 +15,6 @@ export class CreateOrderUseCase {
   async execute(data: CreateOrderData) {
     const { clientId, service, orderDue, status } = data;
 
-    console.log('=== DEBUG CREATE ORDER ===');
-    console.log('clientId recebido:', clientId);
-    console.log('service:', service);
-
     // Validar campos obrigatórios
     if (!clientId || !service || !orderDue) {
       throw new Error("Cliente, serviço e data de entrega são obrigatórios.");
@@ -37,8 +33,6 @@ export class CreateOrderUseCase {
     const client = await prisma.client.findUnique({
       where: { id: clientId } // Buscar pelo ID do Client, não do User
     });
-
-    console.log('Cliente encontrado:', client ? `ID: ${client.id}` : 'NÃO ENCONTRADO');
 
     if (!client) {
       throw new Error("Cliente não encontrado.");

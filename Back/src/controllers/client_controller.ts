@@ -6,13 +6,15 @@ import { CreateClientAccountUseCase } from '../use-cases/client/account/CreateAc
 import { EditAccountUseCase } from '../use-cases/client/account/EditAccountUseCase';
 import { DeleteAccountUseCase } from '../use-cases/client/account/DeleteAccountUseCase';
 import { SearchOrderUseCase } from '../use-cases/client/account/SearchOrderUseCase';
+import { GetAddressUseCase } from '../use-cases/client/account/GetAddressUseCase';
 
 export class ClientController {
   constructor(
     private createClientAccountUseCase: CreateClientAccountUseCase,
     private editAccountUseCase?: EditAccountUseCase,
     private deleteAccountUseCase?: DeleteAccountUseCase,
-    private searchOrderUseCase?: SearchOrderUseCase
+    private searchOrderUseCase?: SearchOrderUseCase,
+    private getAddressUseCase?: GetAddressUseCase
   ) {}
 
   async createClient(req: Request, res: Response) {
@@ -79,6 +81,18 @@ export class ClientController {
     } catch (error: any) {
       res.status(400).json({
         message: error.message || 'Erro ao buscar pedido'
+      });
+    }
+  }
+
+  async getAddress(req: Request, res: Response) {
+    try {
+      const { clientId } = req.params;
+      const result = await this.getAddressUseCase?.execute(clientId);
+      res.status(200).json(result);
+    } catch (error: any) {
+      res.status(400).json({
+        message: error.message || 'Erro ao buscar endereço'
       });
     }
   }

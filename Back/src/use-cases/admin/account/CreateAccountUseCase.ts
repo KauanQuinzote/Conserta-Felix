@@ -12,7 +12,6 @@ export class CreateAccountUseCase {
     const { name, email, password } = user;
 
     if (!name || !email || !password) {
-      console.log(name , email , password);
       throw new Error("Nome, e-mail e senha são obrigatórios.");
     }
 
