@@ -43,3 +43,33 @@ export class GetOrdersUseCase {
     };
   }
 }
+
+export class GetOrderDetailUseCase {
+  async execute(orderId: string) {
+    // Validar orderId (formato UUID)
+    if (!orderId) {
+      throw new Error("ID do pedido é obrigatório.");
+    }
+
+    // Buscar UM pedido pelo ID
+    const order = await prisma.order.findUnique({ 
+      where: {
+        id: orderId
+      },
+      include: {
+        service: true, 
+        client: {
+          include: {
+            user: {
+              select: {
+                name: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    return order; 
+  }
+}
