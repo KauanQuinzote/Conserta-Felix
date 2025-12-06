@@ -76,7 +76,13 @@ export class ClientOrderController {
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const result = await this.deleteOrderUseCase.execute(id);
+      const { clientId } = req.query;
+
+      if (!clientId || typeof clientId !== 'string') {
+        return res.status(400).json({ message: 'clientId é obrigatório' });
+      }
+
+      const result = await this.deleteOrderUseCase.execute(clientId, id);
       res.status(200).json({ message: 'Order deleted', id });
     } catch (error: any) {
       res.status(400).json({

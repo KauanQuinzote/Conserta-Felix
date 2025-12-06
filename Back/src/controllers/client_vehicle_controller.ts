@@ -12,8 +12,8 @@ export class ClientVehicleController {
 
   async add(req: Request, res: Response) {
     try {
-      const data = req.body;
-      const result = await this.addVehicleUseCase.execute(data);
+      const { clientId, make, model, year, licensePlate, color } = req.body;
+      const result = await this.addVehicleUseCase.execute(clientId, make, model, year, licensePlate, color);
       res.status(201).json({ message: 'Vehicle added', data: result });
     } catch (error: any) {
       res.status(400).json({
@@ -25,7 +25,13 @@ export class ClientVehicleController {
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const result = await this.deleteVehicleUseCase.execute(id);
+      const { clientId } = req.query;
+
+      if (!clientId || typeof clientId !== 'string') {
+        return res.status(400).json({ message: 'clientId é obrigatório' });
+      }
+
+      const result = await this.deleteVehicleUseCase.execute(clientId, id);
       res.status(200).json({ message: 'Vehicle deleted', id });
     } catch (error: any) {
       res.status(400).json({
