@@ -9,6 +9,17 @@ export default function Menu() {
   const router = useRouter()
   const [isAdmin, setIsAdmin] = useState(false)
   const [openServices, setOpenServices] = useState(false)
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (timeoutId) clearTimeout(timeoutId);
+    setOpenServices(true);
+  };
+
+  const handleMouseLeave = () => {
+    const id = setTimeout(() => setOpenServices(false), 300); // 300ms de delay
+    setTimeoutId(id);
+  };
 
   useEffect(() => {
     try {
@@ -43,9 +54,9 @@ export default function Menu() {
       relative
       font-bold
     ">
-      
+
       <Link href="/app/home" className="flex items-center gap-2">
-        <img src="/logo.png" alt="logo_conserta" width={50} height={50}/>
+        <img src="/logo.png" alt="logo_conserta" width={50} height={50} />
       </Link>
 
       <div className="h-6 w-px bg-neutral-700"></div>
@@ -60,10 +71,10 @@ export default function Menu() {
           Pedidos
         </Link>
 
-        <div 
+        <div
           className="relative"
-          onMouseEnter={() => setOpenServices(true)}
-          onMouseLeave={() => setOpenServices(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <button className="flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-white/50 transition">
             Serviços
@@ -74,7 +85,7 @@ export default function Menu() {
             <div className="
               absolute top-full left-0 mt-2 
               bg-white text-black rounded-lg shadow-lg 
-              w-56 py-2 z-50
+              w-56 py-2 z-[100] font-normal
             ">
               <Link href="/app/services/troca-de-oleo" className="block px-4 py-2 hover:bg-gray-200">Troca de Óleo</Link>
               <Link href="/app/services/revisao-completa" className="block px-4 py-2 hover:bg-gray-200">Revisão Completa</Link>
@@ -87,21 +98,21 @@ export default function Menu() {
         </div>
 
         {isAdmin && (
-            <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/clients" onClick={userConnect}>
-              Clientes
-            </Link>
-          )}
+          <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/clients" onClick={userConnect}>
+            Clientes
+          </Link>
+        )}
 
-            <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/vehicles" onClick={userConnect}>
-              Veículos
-            </Link>
+        <Link className="px-3 py-2 rounded-lg transition hover:bg-white/50" href="/app/vehicles" onClick={userConnect}>
+          Veículos
+        </Link>
       </nav>
 
       {/* ÍCONE DO USUÁRIO */}
       <div className="ml-auto">
-        <UserRound 
+        <UserRound
           size={28}
-          className="cursor-pointer hover:text-blue-900 transition" 
+          className="cursor-pointer hover:text-blue-900 transition"
           onClick={userConnect}
         />
       </div>

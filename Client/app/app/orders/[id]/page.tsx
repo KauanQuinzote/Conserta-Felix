@@ -185,15 +185,6 @@ export default function OrderDetailsPage() {
           </div>
         </div>
 
-        {/* Ações */}
-        <div className="flex gap-4">
-          <button className="flex-1 bg-primary-blue text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
-            Atualizar Status
-          </button>
-          <button className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg hover:bg-gray-300 transition font-semibold">
-            Editar Pedido
-          </button>
-        </div>
       </div>
     </div>
   );

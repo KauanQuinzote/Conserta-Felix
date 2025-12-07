@@ -8,16 +8,14 @@ import ContactSection from "@/components/ContatoSecao";
 export default function HomePage() {
   return (
     <main>
-      <section className="relative w-full">
-        <Banner
-          width={1800}
-          height={400}
-          className="w-[1780] h-[500px] object-cover"
-        />
-      </section>
+
+      <div className="flex justify-center h-max">
+        <img src="/Banner.png" alt="Banner Conserta Félix" className="w-full object-cover md:w-[1400px]" />
+      </div>
+
 
       {/* Welcome */}
-      <section className="flex justify-center -mt-20 z-10">
+      <section className="flex justify-center z-10">
         <WelcomeCard />
       </section>
 

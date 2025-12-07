@@ -6,7 +6,7 @@ const services = [
   { title: "Revisão Completa", img: "/revisao.png", href: "/app/services/revisao-completa" },
   { title: "Freios e Suspensão", img: "/freios.png", href: "/app/services/freios-e-suspensao" },
   { title: "Diagnóstico Eletrônico", img: "/diagnostico.png", href: "/app/services/diagnostico-eletronico" },
-  { title: "Ar Condicionado", img: "/ar-condicionado.png", href: "/app/services/ar-condicionado" },
+  { title: "Ar Condicionado", img: "/ar_condicionado.png", href: "/app/services/ar-condicionado" },
   { title: "Alinhamento e Balanceamento", img: "/alinhamento.png", href: "/app/services/alinhamento-e-balanceamento" },
 ];
 

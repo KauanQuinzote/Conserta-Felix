@@ -5,24 +5,16 @@ export default function Sobre() {
     <div className="w-full bg-white pb-20">
       {/* HEADER */}
       <section className="w-full bg-white py-20 text-center shadow-md">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-blue-700 drop-shadow-lg uppercase">
+        <h3 className="text-4xl md:text-5xl font-extrabold text-blue-700 drop-shadow-lg uppercase ">
           Sobre a Conserta Félix
-        </h1>
+        </h3>
         <p className="mt-4 text-blue-800 text-lg md:text-xl max-w-2xl mx-auto font-medium">
           Tecnologia, qualidade e um toque de criatividade no universo da mecânica automotiva.
         </p>
       </section>
 
       <section className="w-full flex justify-center mt-16 px-6">
-        <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-          <div className="flex justify-center">
-            <img
-              src="/Felix.png"
-              alt="Mascote Conserta Félix"
-              className="w-80 drop-shadow-xl"
-            />
-          </div>
+        <div className="w-full max-w-5xl grid grid-cols-1 gap-12 items-center">
 
           <div>
             <h2 className="text-3xl font-bold text-blue-700 mb-4">
