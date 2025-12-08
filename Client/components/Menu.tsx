@@ -108,7 +108,6 @@ export default function Menu() {
         </Link>
       </nav>
 
-      {/* ÍCONE DO USUÁRIO */}
       <div className="ml-auto">
         <UserRound
           size={28}

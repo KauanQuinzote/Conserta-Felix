@@ -11,16 +11,25 @@ export class ClientVehicleController {
   ) {}
 
   async add(req: Request, res: Response) {
-    try {
-      const { clientId, make, model, year, licensePlate, color } = req.body;
-      const result = await this.addVehicleUseCase.execute(clientId, make, model, year, licensePlate, color);
-      res.status(201).json({ message: 'Vehicle added', data: result });
-    } catch (error: any) {
-      res.status(400).json({
-        message: error.message || 'Erro ao adicionar veículo'
-      });
-    }
+  try {
+    const { clientId, plate, type, make, model, year } = req.body;
+
+    const result = await this.addVehicleUseCase.execute(
+      clientId,
+      make,
+      model,
+      year,
+      plate,
+      type
+    );
+
+    res.status(201).json({ message: 'Vehicle added', data: result });
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message || 'Erro ao adicionar veículo'
+    });
   }
+}
 
   async delete(req: Request, res: Response) {
     try {

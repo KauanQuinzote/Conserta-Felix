@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import VehicleList from "@/components/VehicleList";
 
 export default function ProfileInfo() {
   const [token, setToken] = useState<string | null>(null);
@@ -168,10 +167,6 @@ export default function ProfileInfo() {
       </div>
 
       <hr className="border-t-4" />
-
-      <h2 className="text-1xl font-bold mb-4">Veículos</h2>
-
-      <VehicleList />
     </div>
   );
 }

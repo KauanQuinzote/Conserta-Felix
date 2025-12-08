@@ -1,5 +1,5 @@
 import { prisma } from '../../../infra/prisma/client';
-import VehicleEntity from '../../../entities/vehicle_entity';
+import VehicleEntity, {VehicleType, VehicleBrands} from '../../../entities/vehicle_entity';
 
 
 export class AddVehicleUseCase {
@@ -8,8 +8,8 @@ export class AddVehicleUseCase {
     make: string,
     model: string,
     year: number,
-    licensePlate: string,
-    color: string
+    plate: string,
+    type: string,
   ) {
     const clientExists = await prisma.client.findUnique({
       where: { id: clientId },
@@ -22,20 +22,20 @@ export class AddVehicleUseCase {
     const newVehicle = await prisma.vehicle.create({
       data: {
         clientId,
+        plate,
+        type,
         make,
         model,
         year,
-        licensePlate,
-        color,
       },
     });
 
     const vehicleEntity = new VehicleEntity(
-      newVehicle.make,
       newVehicle.model,
       newVehicle.year,
-      newVehicle.licensePlate,
-      newVehicle.color
+      newVehicle.plate,
+      newVehicle.type as VehicleType,
+      newVehicle.make as VehicleBrands,
     );
 
     return {

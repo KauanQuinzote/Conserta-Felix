@@ -90,7 +90,7 @@ export class CreateClientAccountUseCase {
       // Salvar endereço como JSON string
       const addressObject = {
         street: finalAddress.street,
-        number: finalAddress.addressnumber || finalAddress.number,
+        number: finalAddress.addressNumber || finalAddress.number,
         neighborhood: finalAddress.neighborhood,
         city: finalAddress.city,
         state: finalAddress.state,

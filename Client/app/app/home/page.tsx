@@ -10,7 +10,7 @@ export default function HomePage() {
     <main>
 
       <div className="flex justify-center h-max">
-        <img src="/Banner.png" alt="Banner Conserta Félix" className="w-full object-cover md:w-[1400px]" />
+        <img src="/Banner.png" alt="Banner Conserta Félix" className="w-full object-cover md:w-[1600px]" />
       </div>
 
 

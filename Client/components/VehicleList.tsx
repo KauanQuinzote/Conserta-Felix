@@ -1,85 +1,117 @@
-'use client';
+"use client";
+
 import { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import VehicleCard from "@/app/app/vehicles/VehicleCard";
+import Loading from "@/components/Loading";
+import { useParams } from "next/navigation";
+
+export interface VehicleListProps {
+  filter: string;
+  search: string;
+}
 
 export interface Vehicle {
   id: string;
-  plate: string;
   model: string;
   brand: string;
   year: number;
-  type?: "carro" | "moto" | "van";
+  plate: string;
+  type: string;
 }
 
-
-// Remver quando implementar a lógica de pegar os veiculos
-export function getMockVehicles(): Vehicle[] {
-  return [
-    { id: "1", plate: "ABC1D23", model: "Onix",    brand: "Chevrolet", year: 2020, type: "carro" },
-    { id: "2", plate: "XYZ4E56", model: "HB20",    brand: "Hyundai",   year: 2019, type: "carro" },
-    { id: "3", plate: "JKL7M89", model: "CG 160",  brand: "Honda",     year: 2022, type: "moto"  },
-    { id: "4", plate: "MNO7M89", model: "Ducato",  brand: "Fiat",      year: 2001, type: "van"   },
-  ];
-}
-
-export default function VehicleList({ filter = "all" }: { filter?: string }) {
+export default function VehicleList({ filter, search }: VehicleListProps) {
+  const params = useParams();
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const mock = getMockVehicles();
-    setVehicles(mock);
-    setLoading(false);
+    const fetchVehicles = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+        if (!token || !user.clientId) {
+          console.error("Usuário não autenticado.");
+          return;
+        }
+
+        const res = await fetch(
+          `http://localhost:3000/api/vehicle?clientId=${user.clientId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        const data = await res.json();
+        setVehicles(data);
+      } catch (error) {
+        console.error("Erro ao buscar veículos:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVehicles();
   }, []);
 
-  //Necessário ajustar a lógica, removendo do vackend
-  const handleRemoveVehicle = (id: string) => {
-    setVehicles((prev) => prev.filter((vehicle) => vehicle.id !== id));
+  // 🗑 Função para excluir veículo
+  const handleDelete = async (id: string) => {
+    if (!confirm("Tem certeza que deseja excluir este veículo?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+      const response = await fetch(
+        `http://localhost:3000/api/vehicle/${id}?clientId=${user.clientId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert("Erro ao excluir: " + error.message);
+        return;
+      }
+
+      // Atualiza a lista removendo o veículo excluído
+      setVehicles((prev) => prev.filter((v) => v.id !== id));
+
+      alert("Veículo excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir veículo:", error);
+    }
   };
 
-  if (loading) return <p>Carregando veículos...</p>;
+  if (isLoading) return <Loading />;
 
-  const filteredVehicles =
-    filter === "all"
-      ? vehicles
-      : vehicles.filter((v) => v.type === filter);
+  const filteredByType = vehicles.filter((v) =>
+    filter === "all" ? true : v.type === filter
+  );
+
+  const filteredBySearch = filteredByType.filter((v) =>
+    `${v.brand} ${v.model} ${v.plate}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
+  if (filteredBySearch.length === 0) {
+    return <p className="text-gray-700 mt-6">Nenhum veículo encontrado.</p>;
+  }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-      {filteredVehicles.length === 0 && (
-        <p className="text-gray-600">Nenhum veículo encontrado para este filtro.</p>
-      )}
-
-      {filteredVehicles.map((vehicle) => (
-        <div
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {filteredBySearch.map((vehicle) => (
+        <VehicleCard
           key={vehicle.id}
-          className="relative border p-4 rounded-lg shadow-sm bg-white hover:scale-105 hover:shadow-lg transition duration-300"
-        >
-          <button
-            type="button"
-            onClick={() => handleRemoveVehicle(vehicle.id)}
-            className="absolute top-2 right-2 p-1 rounded-full hover:bg-red-100 transition"
-            aria-label={`Remover veículo ${vehicle.plate}`}
-          >
-            <Trash2 className="w-4 h-4 text-red-600" />
-          </button>
-
-          <h3 className="font-bold text-lg text-blue-700 hover:text-red-700 transition-colors mt-2">
-            {vehicle.brand} {vehicle.model}
-          </h3>
-
-          <p className="text-gray-700 mt-1">
-            <strong>Placa:</strong> {vehicle.plate}
-          </p>
-
-          <p className="text-gray-700">
-            <strong>Ano:</strong> {vehicle.year}
-          </p>
-
-          <p className="text-gray-600 text-sm mt-1">
-            <strong>Tipo:</strong> {vehicle.type}
-          </p>
-        </div>
+          vehicle={vehicle}
+          onDelete={handleDelete}
+        />
       ))}
     </div>
   );
